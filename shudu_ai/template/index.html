@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>数度智慧-语音标注平台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="/static/css/font.css">
+    <link rel="stylesheet" href="/static/css/xadmin.css">
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="x-nav">
+      <span>
+        <a href="index.html" style="color: #000000">HOME</a>
+      </span>
+<!--    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"-->
+<!--    href="javascript:location.replace(location.href);" title="刷新">-->
+<!--    <i class="glyphicon glyphicon-refresh" style="line-height:30px"></i></a>-->
+        <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" title="刷新" id="resh">
+    <i class="glyphicon glyphicon-refresh" style="line-height:30px"></i></a>
+
+
+</div>
+<div class="x-body">
+
+
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>音频编号</th>
+            <th>音频名称</th>
+            <th>状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        {%if audios %}
+            {% for voice in audios %}
+                {% if voice.state == 1 %}
+                    <tr>
+                        <td>{{voice.id}}</td>
+                        <td>{{voice.name}}</td>
+                        <td class="td-status">
+                            <span class="layui-btn layui-btn-normal layui-btn-mini" style="color: green;background-color: #C9C9C9">已标注</span>
+                        </td>
+                    </tr>
+
+                {% elif voice.state == 0 %}
+                    <tr  style="background-color: #FFFFF0">
+                        <td>{{voice.id}}</td>
+                        <td>{{voice.name}}</td>
+                        <td class="td-status">
+                            <span class="layui-btn layui-btn-normal layui-btn-mini"  style="background-color: #C9C9C9"><a href="/shudu/label/?id={{voice.id}}">开始标注</a></span>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        {%endif%}
+
+
+
+
+
+<!--        <tr>-->
+<!--            <td>2</td>-->
+<!--            <td>标注</td>-->
+<!--            <td class="td-status">-->
+<!--                <span class="layui-btn layui-btn-normal layui-btn-mini" style="color: green;background-color: #C9C9C9">已标注</span>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr style="background-color: #FFFFF0">-->
+<!--            <td>1</td>-->
+<!--            <td>标注</td>-->
+<!--            <td class="td-status">-->
+<!--                <span class="layui-btn layui-btn-normal layui-btn-mini" style="background-color: #C9C9C9"><a href="label.html">开始标注</a></span></td>-->
+<!--        </tr>-->
+<!--        <tr style="background-color: #FFFFF0">-->
+<!--            <td>3</td>-->
+<!--            <td>标注</td>-->
+<!--            <td class="td-status">-->
+<!--                <span class="layui-btn layui-btn-normal layui-btn-mini" style="background-color: #C9C9C9"><a href="label.html">开始标注</a></span>-->
+<!--            </td>-->
+<!--        </tr>-->
+
+
+
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+<script>
+    $('#resh').click(function (){
+        $.ajax({
+            'type': 'get',
+            'url': '/shudu/audio/take/',
+            dataType: 'json',
+            success: function (data) {
+                if (data.code == 200100) {
+                    alert(data.msg);
+                    window.location.href = '/shudu/index/'
+                }
+                else {
+                    alert('获取失败')
+                }
+            }
+        })
+    })
+</script>
+
+</html>
