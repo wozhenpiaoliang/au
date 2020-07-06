@@ -22,7 +22,7 @@ class Audio(models.Model):
     distance = models.CharField(max_length=32, default=0)
     detail = models.TextField(max_length=64, default=None, null=True)
 
-    audio_url = models.FilePathField()
+    audio_url = models.CharField(max_length=64,default=None,null=True)
     #state 0未标注 1已标注
     state = models.IntegerField(default=0)
     #read 0未被操作 1已被操作

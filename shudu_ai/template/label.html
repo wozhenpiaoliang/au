@@ -66,7 +66,10 @@
 <!-- Header -->
 <div id="header">
     <div class="wrapper">
-        <h1 class="logo-small"><a href="index.html" style="text-transform:none">HOME</a></h1>
+        <h1 class="logo-small"><a href="/shudu/index/" style="text-transform:none">HOME</a></h1>
+        <h1 class="logo-small"><a href="/shudu/index/label/audios/" style="text-transform:none">已标注的</a></h1>
+        <h1 class="logo-small"><a href="/shudu/index/no/label/audios/" style="text-transform:none">未标注的</a></h1>
+
     </div>
 </div>
 
@@ -75,6 +78,7 @@
 <div class="work-header"></div>
 
 <!-- Work Audio -->
+<div>{{no_all_audios}}/{{all_audios}}</div>
 <div class="work-audio">
     <!--<img src="{{image}}" alt="" style="width: 1095px;height: 300px;margin-left: 212px">-->
     <img src="{{img_url}}" alt="" style="width: 1095px;height: 300px;margin-left: 212px">
@@ -94,7 +98,7 @@
                 你的浏览器不支持video元素
             </audio>
             <!--            <source src="{{audio_url}}" type="audio/mpeg" id="bgMusic">-->
-            <input type="text" hidden value="{{audio.id}}" id="voice_id">
+            <input type="text" value="{{audio_id}}" hidden id="voice_id">
 
             <button onclick="play()">播放</button>
             <button onclick="pause()">暂停</button>
@@ -156,9 +160,10 @@
         var distance = $('#distance').val();
         var voice_id = $('#voice_id').val();
         var other_info=$('#qa-tips-comments').val();
+        stop()
         $.ajax({
             'type': 'post',
-            'url': '/shudu/keep_label',
+            'url': '/shudu/keep_label/',
             'data': {
                 'chemicals': chemicals,
                 'distance': distance,
@@ -167,12 +172,19 @@
             },
             dataType: 'json',
             success: function (data) {
-                if (data.code == 20000) {
+                if (data.code == 200100) {
+                    window.location.href = '/shudu/label/continue/'
+                }
+                else if (data.code == 200400) {
                     alert(data.msg);
-                    window.location.replace = '/shudu/label/continue/'
+                    window.location.href = '/shudu/index/'
+                }
+                else if (data.code == 200001) {
+                    alert(data.msg);
+                    window.location.href = '/shudu/index/'
                 }
                 else {
-                    alert('保存失败')
+                    alert(data.msg)
                 }
             }
         })

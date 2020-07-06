@@ -23,7 +23,7 @@
 
 <body>
 <div class="x-nav">
-      <span>
+        <span>
         <a href="/shudu/index/" style="color: #000000">HOME</a>
       </span>
       <span>
@@ -54,33 +54,21 @@
         <tbody>
         {%if audios %}
             {% for voice in audios %}
-                {% if voice.state == 1 %}
-                    <tr>
-                        <td>{{voice.id}}</td>
-                        <td>{{voice.name}}</td>
-                        <td class="td-status">
-                            <span class="layui-btn layui-btn-normal layui-btn-mini" style="color: green;background-color: #C9C9C9">已标注</span>
-                        </td>
-                    </tr>
 
-                {% elif voice.state == 0 %}
-                    <tr  style="background-color: #FFFFF0">
-                        <td>{{voice.id}}</td>
-                        <td>{{voice.name}}</td>
+                <tr  style="background-color: #FFFFF0">
+                    <td>{{voice.id}}</td>
+                    <td>{{voice.name}}</td>
 
-                        <td class="td-status">
-                            {% if voice.read == 0 %}
-                            <span class="layui-btn layui-btn-normal layui-btn-mini"  style="background-color: #C9C9C9"><a href="/shudu/label/?id={{voice.id}}">开始标注</a></span><span>未被操作</span>
-                            {% else %}
-                            <span class="layui-btn layui-btn-normal layui-btn-mini"  style="background-color: #C9C9C9"><a href="/shudu/label/?id={{voice.id}}">开始标注</a></span><span>正在被操作</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endif %}
+                    <td class="td-status">
+                        {% if voice.read == 0 %}
+                        <span class="layui-btn layui-btn-normal layui-btn-mini"  style="background-color: #C9C9C9"><a href="/shudu/label/?id={{voice.id}}">开始标注</a></span><span>未被操作</span>
+                        {% else %}
+                        <span class="layui-btn layui-btn-normal layui-btn-mini"  style="background-color: #C9C9C9"><a href="/shudu/label/?id={{voice.id}}">开始标注</a></span><span>正在被操作</span>
+                        {% endif %}
+                    </td>
+                </tr>
             {% endfor %}
         {%endif%}
-
-
 
 
 

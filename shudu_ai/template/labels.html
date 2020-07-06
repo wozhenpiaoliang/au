@@ -23,7 +23,7 @@
 
 <body>
 <div class="x-nav">
-      <span>
+        <span>
         <a href="/shudu/index/" style="color: #000000">HOME</a>
       </span>
       <span>
@@ -54,7 +54,6 @@
         <tbody>
         {%if audios %}
             {% for voice in audios %}
-                {% if voice.state == 1 %}
                     <tr>
                         <td>{{voice.id}}</td>
                         <td>{{voice.name}}</td>
@@ -62,49 +61,8 @@
                             <span class="layui-btn layui-btn-normal layui-btn-mini" style="color: green;background-color: #C9C9C9">已标注</span>
                         </td>
                     </tr>
-
-                {% elif voice.state == 0 %}
-                    <tr  style="background-color: #FFFFF0">
-                        <td>{{voice.id}}</td>
-                        <td>{{voice.name}}</td>
-
-                        <td class="td-status">
-                            {% if voice.read == 0 %}
-                            <span class="layui-btn layui-btn-normal layui-btn-mini"  style="background-color: #C9C9C9"><a href="/shudu/label/?id={{voice.id}}">开始标注</a></span><span>未被操作</span>
-                            {% else %}
-                            <span class="layui-btn layui-btn-normal layui-btn-mini"  style="background-color: #C9C9C9"><a href="/shudu/label/?id={{voice.id}}">开始标注</a></span><span>正在被操作</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endif %}
             {% endfor %}
         {%endif%}
-
-
-
-
-
-<!--        <tr>-->
-<!--            <td>2</td>-->
-<!--            <td>标注</td>-->
-<!--            <td class="td-status">-->
-<!--                <span class="layui-btn layui-btn-normal layui-btn-mini" style="color: green;background-color: #C9C9C9">已标注</span>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        <tr style="background-color: #FFFFF0">-->
-<!--            <td>1</td>-->
-<!--            <td>标注</td>-->
-<!--            <td class="td-status">-->
-<!--                <span class="layui-btn layui-btn-normal layui-btn-mini" style="background-color: #C9C9C9"><a href="label.html">开始标注</a></span></td>-->
-<!--        </tr>-->
-<!--        <tr style="background-color: #FFFFF0">-->
-<!--            <td>3</td>-->
-<!--            <td>标注</td>-->
-<!--            <td class="td-status">-->
-<!--                <span class="layui-btn layui-btn-normal layui-btn-mini" style="background-color: #C9C9C9"><a href="label.html">开始标注</a></span>-->
-<!--            </td>-->
-<!--        </tr>-->
-
 
 
         </tbody>
@@ -113,23 +71,5 @@
 </div>
 
 </body>
-<script>
-    $('#resh').click(function (){
-        $.ajax({
-            'type': 'get',
-            'url': '/shudu/audio/take/',
-            dataType: 'json',
-            success: function (data) {
-                if (data.code == 200100) {
-                    alert(data.msg);
-                    window.location.href = '/shudu/index/'
-                }
-                else {
-                    alert('获取失败')
-                }
-            }
-        })
-    })
-</script>
 
 </html>

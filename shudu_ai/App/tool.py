@@ -13,7 +13,7 @@ from App.models import Img
 
 def keep_wave(audio_url,audio_name,audio):
     # 打开WAV文档
-    f = wave.open(audio_url, "rb")
+    f = wave.open(rf'{audio_url}', "rb")
     # 读取格式信息
 
     # (nchannels, sampwidth, framerate, nframes, comptype, compname)

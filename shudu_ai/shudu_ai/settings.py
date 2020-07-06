@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'App'
+    'App',
+    'pure_pagination',
 ]
 
 MIDDLEWARE = [
@@ -106,6 +107,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+PAGINATION_SETTINGS = {
+     'PAGE_RANGE_DISPLAYED': 3,    #中间显示的个数
+     'MARGIN_PAGES_DISPLAYED': 2,  #两边显示的个数
+
+     'SHOW_FIRST_PAGE_WHEN_INVALID': True,
+ }
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
